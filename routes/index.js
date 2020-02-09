@@ -1,10 +1,21 @@
+const path = require('path');
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  console.log(__dirname);
   res.render('index', { title: 'Express' });
+});
+
+router.get('/available_files', function(req, res, next) {
+  var path = path.resolve('../assets');
+  var result = fs.readdirSync(path);
+
+
+  res.contentType('application/json');
+  res.send(JSON.stringify(result));
 });
 
 router.get('/video', function (req, res) {
